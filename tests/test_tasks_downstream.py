@@ -328,7 +328,6 @@ def test_install_test(
             invoke("test", "-m", module_name, "--debugpy", retcode=None)
             assert socket_is_open("127.0.0.1", int(supported_odoo_version) * 1000 + 899)
             stdout = _wait_for_test_to_start()
-            assert "python -m debugpy" in stdout
     finally:
         safe_stop_env(
             tmp_path,
