@@ -669,10 +669,13 @@ def img_build(c, pull=True):
 
 
 @task()
-def img_pull(c):
+def img_pull(c, ignore_buildable=True):
     """Pull docker images."""
+    cmd = DOCKER_COMPOSE_CMD + " pull"
+    if ignore_buildable:
+        cmd += " --ignore-buildable"
     with c.cd(str(PROJECT_ROOT)):
-        c.run(DOCKER_COMPOSE_CMD + " pull", pty=True)
+        c.run(cmd, pty=True)
 
 
 @task()
