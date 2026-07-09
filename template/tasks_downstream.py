@@ -1135,6 +1135,7 @@ def stop(c, purge=False):
         " Default: True",
         "dependencies": "Install only the dependencies of the specified addons."
         "Default: False",
+        "demo": "Create the DB with demo data. Default: True.",
     },
 )
 def resetdb(
@@ -1147,6 +1148,7 @@ def resetdb(
     dbname="devel",
     populate=True,
     dependencies=False,
+    demo=True,
 ):
     """Reset the specified database with the specified modules.
 
@@ -1170,8 +1172,9 @@ def resetdb(
         )
         lang = os.getenv("INITIAL_LANG")
         lang_opt = f" --lang {lang}" if lang else ""
+        demo_opt = " --demo" if demo else " --no-demo"
         c.run(
-            f"{_run} click-odoo-initdb -n {dbname} -m {modules}{lang_opt}",
+            f"{_run} click-odoo-initdb -n {dbname} -m {modules}{lang_opt}{demo_opt}",
             env=UID_ENV,
             pty=True,
         )
